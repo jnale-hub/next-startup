@@ -1,13 +1,14 @@
+import StartupCard, { StartupTypeCard } from "@/components/StartupCard";
+import { Skeleton } from '@/components/ui/skeleton';
+import View from "@/components/View";
 import { formatDate } from "@/lib/utils";
 import { client } from "@/sanity/lib/client";
-import { STARTUP_BY_ID_QUERY } from "@/sanity/lib/queries";
+import { PLAYLIST_BY_SLUG_QUERY, STARTUP_BY_ID_QUERY } from "@/sanity/lib/queries";
+import markdownit from "markdown-it";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React, { Suspense } from "react";
-import markdownit from "markdown-it";
-import { Skeleton } from '@/components/ui/skeleton';
-import View from "@/components/View";
+import { Suspense } from "react";
 
 const md = markdownit();
 
@@ -16,7 +17,12 @@ export const experimental_ppr = true;
 const PageProps = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
 
-  const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
+  const [post, { select: editorPosts }] = await Promise.all([
+    client.fetch(STARTUP_BY_ID_QUERY, { id }),
+    client.fetch(PLAYLIST_BY_SLUG_QUERY, {
+      slug: "editor-picks",
+    }),
+  ]);
 
   if (!post) return notFound();
 
@@ -75,7 +81,7 @@ const PageProps = async ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
 
         <hr className="divider" />
-        {/* 
+        
       {editorPosts?.length > 0 && (
         <div className="max-w-4xl mx-auto">
           <p className="text-30-semibold">Editor Picks</p>
@@ -86,7 +92,7 @@ const PageProps = async ({ params }: { params: Promise<{ id: string }> }) => {
             ))}
           </ul>
         </div>
-      )} */}
+      )}
         
       <Suspense fallback={<Skeleton className="view_skeleton" />}>
         <View id={id} />
