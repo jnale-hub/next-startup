@@ -1,7 +1,8 @@
+import { cn } from "@/lib/utils";
+import "easymde/dist/easymde.min.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import "easymde/dist/easymde.min.css";
 
 const workSans = localFont({
   src: [
@@ -56,7 +57,8 @@ const workSans = localFont({
 
 export const metadata: Metadata = {
   title: "Next Startup",
-  description: "A directory of open-source projects and resources for startups.",
+  description:
+    "A directory of open-source projects and resources for startups.",
 };
 
 export default function RootLayout({
@@ -66,9 +68,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={workSans.variable}
-      >
+      <body className={cn(workSans.variable, "bg-gray-900 text-gray-50")}>
         {children}
       </body>
     </html>
