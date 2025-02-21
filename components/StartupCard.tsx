@@ -1,9 +1,9 @@
-import { cn, formatDate } from "@/lib/utils";
-import { EyeIcon } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { cn, formatDate } from "@/lib/utils";
 import { Author, Startup } from "@/sanity/types";
+import { LucideEye } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { Skeleton } from "./ui/skeleton";
 // import { Skeleton } from "@/components/ui/skeleton";
 
@@ -22,48 +22,48 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
   } = post;
 
   return (
-    <li className="startup-card group">
-      <div className="flex-between">
-        <p className="startup_card_date">{formatDate(_createdAt)}</p>
-        <div className="flex gap-1.5">
-          <EyeIcon className="size-6 text-primary" />
-          <span className="text-16-medium">{views}</span>
-        </div>
-      </div>
-
-      <div className="flex-between mt-5 gap-5">
-        <div className="flex-1">
-          <Link href={`/user/${author?._id}`}>
-            <p className="text-16-medium line-clamp-1">{author?.name}</p>
-          </Link>
-          <Link href={`/startup/${_id}`}>
-            <h3 className="text-26-semibold line-clamp-1">{title}</h3>
-          </Link>
-        </div>
-        <Link href={`/user/${author?._id}`}>
-          <Image
-            src={author?.image!}
-            alt={author?.name!}
-            width={48}
-            height={48}
-            className="rounded-full"
-          />
-        </Link>
-      </div>
-
+    <li className="group text-gray-50 bg-gray-800 rounded-xl overflow-hidden flex flex-col">
       <Link href={`/startup/${_id}`}>
-        <p className="startup-card_desc">{description}</p>
-
         <img src={image} alt="placeholder" className="startup-card_img" />
       </Link>
 
-      <div className="flex-between gap-3 mt-5">
-        <Link href={`/?query=${category?.toLowerCase()}`}>
-          <p className="text-16-medium">{category}</p>
+      <div className="p-4 flex-1 grid">
+        <div className="flex flex-wrap gap-x-4 gap-y-2  items-center">
+          <Link href={`/startup/${_id}`}>
+            <h3 className="font-medium max-md:text-xl max-sm:text-base 2xl:text-xl line-clamp-1">{title}</h3>
+          </Link>
+          <div className="flex gap-4 items-center">
+            <span className="text-sm text-gray-400">by</span>
+            <Link
+              href={`/user/${author?._id}`}
+              className="gap-2 flex items-center line-clamp-1"
+            >
+              <Image
+                src={author?.image!}
+                alt={author?.name!}
+                width={32}
+                height={32}
+                className="rounded-full aspect-square object-cover"
+              />
+              <p className="font-normal max-md:text-base max-sm:text-sm 2xl:text-base  text-gray-300">{author?.name}</p>
+            </Link>
+          </div>
+        </div>
+        <Link href={`/startup/${_id}`}>
+          <p className="font-normal text-base line-clamp-2 my-3 text-gray-400">{description}</p>
         </Link>
-        <Button className="startup-card_btn" asChild>
-          <Link href={`/startup/${_id}`}>Details</Link>
-        </Button>
+        <div className="flex justify-between items-center mt-6 place-items-end">
+          <p className="text-sm text-gray-200">{formatDate(_createdAt)}</p>
+          <div className="flex gap-4">
+            <div className="flex gap-1.5 items-center">
+              <LucideEye className="size-4" />
+              <span className="text-sm">{views}</span>
+            </div>
+            <Link href={`/?query=${category?.toLowerCase()}`}>
+              <p className="px-3 py-1 rounded-full bg-gradient-to-r from-green-200/30 to-blue-500/30 text-sm">{category}</p>
+            </Link>
+          </div>
+        </div>
       </div>
     </li>
   );
