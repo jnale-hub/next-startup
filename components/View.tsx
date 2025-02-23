@@ -19,12 +19,8 @@ const View = async ({ id }: { id: string }) => {
 
   return (
     <div className="view-container">
-      <div className="absolute -top-2 -right-2">
-        <Ping />
-      </div>
-
-      <p className="view-text">
-        <span className="font-bold">Views: {totalViews}</span>
+      <p className="px-3 py-1 rounded-full bg-gradient-to-r from-green-200/30 to-blue-500/30 backdrop-blur-lg">
+        <span className="font-medium">Views: {totalViews}</span>
       </p>
     </div>
   );

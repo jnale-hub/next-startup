@@ -77,104 +77,93 @@ const StartupForm = () => {
   });
 
   return (
-    <form action={formAction} className="startup-form">
-        <div>
-          <label htmlFor="title" className="startup-form_label">
-            Title
-          </label>
-        <Input
-          id="title"
-          name="title"
-          className="startup-form_input"
-          required
-          placeholder="Startup Title"
-        />
+    <form action={formAction} className="space-y-6 max-w-4xl mx-auto p-4">
+  <div>
+    <label htmlFor="title" className="block text-sm font-medium text-gray-300">
+      Title
+    </label>
+    <Input
+      id="title"
+      name="title"
+      className="w-full mt-1 p-2 bg-gray-800 text-white border border-gray-700 rounded-md focus:ring-blue-500 focus:border-blue-500"
+      required
+      placeholder="Startup Title"
+    />
+    {errors.title && <p className="mt-1 text-sm text-red-500">{errors.title}</p>}
+  </div>
 
-        {errors.title && <p className="startup-form_error">{errors.title}</p>}
-      </div>
+  <div>
+    <label htmlFor="description" className="block text-sm font-medium text-gray-300">
+      Description
+    </label>
+    <Textarea
+      id="description"
+      name="description"
+      className="w-full mt-1 p-2 bg-gray-800 text-white border border-gray-700 rounded-md focus:ring-blue-500 focus:border-blue-500"
+      required
+      placeholder="Startup Description"
+    />
+    {errors.description && <p className="mt-1 text-sm text-red-500">{errors.description}</p>}
+  </div>
 
-      <div>
-        <label htmlFor="description" className="startup-form_label">
-          Description
-        </label>
-        <Textarea
-          id="description"
-          name="description"
-          className="startup-form_textarea"
-          required
-          placeholder="Startup Description"
-        />
+  <div>
+    <label htmlFor="category" className="block text-sm font-medium text-gray-300">
+      Category
+    </label>
+    <Input
+      id="category"
+      name="category"
+      className="w-full mt-1 p-2 bg-gray-800 text-white border border-gray-700 rounded-md focus:ring-blue-500 focus:border-blue-500"
+      required
+      placeholder="Startup Category (Tech, Health, Education...)"
+    />
+    {errors.category && <p className="mt-1 text-sm text-red-500">{errors.category}</p>}
+  </div>
 
-        {errors.description && (
-          <p className="startup-form_error">{errors.description}</p>
-        )}
-      </div>
+  <div>
+    <label htmlFor="link" className="block text-sm font-medium text-gray-300">
+      Image URL
+    </label>
+    <Input
+      id="link"
+      name="link"
+      className="w-full mt-1 p-2 bg-gray-800 text-white border border-gray-700 rounded-md focus:ring-blue-500 focus:border-blue-500"
+      required
+      placeholder="Startup Image URL"
+    />
+    {errors.link && <p className="mt-1 text-sm text-red-500">{errors.link}</p>}
+  </div>
 
-      <div>
-        <label htmlFor="category" className="startup-form_label">
-          Category
-        </label>
-        <Input
-          id="category"
-          name="category"
-          className="startup-form_input"
-          required
-          placeholder="Startup Category (Tech, Health, Education...)"
-        />
+  <div>
+    <label htmlFor="pitch" className="block text-sm font-medium text-gray-300">
+      Pitch
+    </label>
+    <MDEditor
+      value={pitch}
+      onChange={(value) => setPitch(value as string)}
+      id="pitch"
+      preview="edit"
+      height={300}
+      className="mt-2 border border-gray-700 rounded-md overflow-hidden bg-gray-800 text-white"
+      textareaProps={{
+        placeholder: "Briefly describe your idea and what problem it solves",
+      }}
+      previewOptions={{
+        disallowedElements: ["style"],
+      }}
+    />
+    {errors.pitch && <p className="mt-1 text-sm text-red-500">{errors.pitch}</p>}
+  </div>
 
-        {errors.category && (
-          <p className="startup-form_error">{errors.category}</p>
-        )}
-      </div>
-
-      <div>
-        <label htmlFor="link" className="startup-form_label">
-          Image URL
-        </label>
-        <Input
-          id="link"
-          name="link"
-          className="startup-form_input"
-          required
-          placeholder="Startup Image URL"
-        />
-
-        {errors.link && <p className="startup-form_error">{errors.link}</p>}
-      </div>
-
-      <div data-color-mode="light">
-        <label htmlFor="pitch" className="startup-form_label">
-          Pitch
-        </label>
-
-        <MDEditor
-          value={pitch}
-          onChange={(value) => setPitch(value as string)}
-          id="pitch"
-          preview="edit"
-          height={300}
-          style={{ borderRadius: 20, overflow: "hidden" }}
-          textareaProps={{
-            placeholder:
-              "Briefly describe your idea and what problem it solves",
-          }}
-          previewOptions={{
-            disallowedElements: ["style"],
-          }}
-        />
-
-        {errors.pitch && <p className="startup-form_error">{errors.pitch}</p>}
-      </div>
-
-      <Button
-        type="submit"
-        className="startup-form_btn text-white"
-        disabled={isPending}
-      >
-        {isPending ? "Submitting..." : "Submit Your Pitch"}
-        <Send className="size-6 ml-2" />
-      </Button>
-    </form>
+  <Button
+    type="submit"
+    className="py-2 px-4"
+    disabled={isPending}
+  >
+    {isPending ? "Submitting..." : "Submit Your Pitch"}
+    <Send className="size-6 ml-2" />
+  </Button>
+</form>
   );
 };
 

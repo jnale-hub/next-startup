@@ -30,19 +30,21 @@ const PageProps = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <>
-      <section className="pink_container !min-h-[230px]">
-        <p className="tag">{formatDate(post?._createdAt)}</p>
+      <section className="w-full min-h-24 flex justify-center items-center flex-col py-10 px-6">
+        <p className="text-gray-300 text-center text-sm md:text-base">{formatDate(post?._createdAt)}</p>
 
-        <h1 className="heading">{post.title}</h1>
-        <p className="sub-heading !max-w-5xl">{post.description}</p>
+        <h1 className="px-6 py-2 font-work-sans font-extrabold sm:text-5xl sm:leading-[64px] text-4xl leading-[46px] max-w-5xl text-center my-4 highlight">{post.title}</h1>
+        <p className="text-center text-gray-300">{post.description}</p>
       </section>
 
       <section className="section_container">
-        <img
-          src={post.image}
-          alt="thumbnail"
-          className="w-full h-auto rounded-xl"
-        />
+        <div className="max-w-4xl mx-auto">
+          <img
+            src={post.image}
+            alt="thumbnail"
+            className="aspect-video object-cover rounded-xl"
+          />
+        </div>
 
         <div className="space-y-5 mt-10 max-w-4xl mx-auto">
           <div className="flex-between gap-5">
@@ -53,30 +55,30 @@ const PageProps = async ({ params }: { params: Promise<{ id: string }> }) => {
               <Image
                 src={post.author.image}
                 alt="avatar"
-                width={64}
-                height={64}
+                width={50}
+                height={50}
                 className="rounded-full drop-shadow-lg"
               />
 
               <div>
-                <p className="text-20-medium">{post.author.name}</p>
-                <p className="text-16-medium !text-black-300">
+                <p className="font-medium text-lg md:text-xl">{post.author.name}</p>
+                <p className="font-medium text-base md:text-md text-gray-300">
                   @{post.author.username}
                 </p>
               </div>
             </Link>
 
-            <p className="category-tag">{post.category}</p>
+            <p className="px-3 py-1 rounded-full bg-gradient-to-r from-green-200/30 to-blue-500/30 text-sm">{post.category}</p>
           </div>
 
-          <h3 className="text-30-bold">Pitch Details</h3>
+          <h3 className="font-semibold text-2xl text-gray-200">Pitch Details</h3>
         {parsedContent ? (
           <article
-            className="prose max-w-4xl font-work-sans break-all"
+            className="prose prose-gray prose-invert max-w-4xl font-work-sans text-pretty0"
             dangerouslySetInnerHTML={{ __html: parsedContent }}
           />
         ) : (
-          <p className="no-result">No details provided</p>
+          <p className="text-gray-300">No details provided</p>
         )} 
         </div>
 
@@ -94,7 +96,7 @@ const PageProps = async ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       )}
         
-      <Suspense fallback={<Skeleton className="view_skeleton" />}>
+      <Suspense fallback={<Skeleton className="h-8 w-24 fixed bottom-3 right-3 rounded-full bg-gradient-to-r from-green-200/40 to-blue-500/40 backdrop-blur-lg" />}>
         <View id={id} />
       </Suspense>
       </section>

@@ -23,7 +23,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
   return (
     <li className="group text-gray-50 bg-gray-800 rounded-xl overflow-hidden flex flex-col">
       <Link href={`/startup/${_id}`}>
-        <img src={image} alt="placeholder" className="startup-card_img" />
+        <img src={image} alt="placeholder" className="aspect-video object-cover" />
       </Link>
 
       <div className="p-4 flex-1 grid">
